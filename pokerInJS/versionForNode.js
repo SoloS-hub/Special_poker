@@ -12,6 +12,9 @@ class Kort {
 		this.valör = valör
 		this.färg = färg
 	}
+	toString() {
+		return `${this.valör} of ${this.färg}`
+	}
 }
 
 // Klass för stack
@@ -27,7 +30,7 @@ class Kortlek {
 	// Ta ett kort överst från leken
 	draKort() {
 		let draget_kort = this.stack.pop()
-		console.log(`Du drar ${draget_kort.färg} ${draget_kort.valör}`)
+		console.log(`You draw a ${draget_kort}`)
 		return draget_kort
 	}
 
