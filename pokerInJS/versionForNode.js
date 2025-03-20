@@ -6,6 +6,8 @@ const valörer = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen",
 
 // "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"
 
+let maxHandSize = 5
+
 // Klass för att skapa spelkort
 class Kort {
 	constructor(valör, färg) {
@@ -191,8 +193,9 @@ class playerHand {
 	}
 
 	//draws a cards for this hand
-	drawFiveCardsToHand() {
-		for (let i = 0; i < 5; i++) {
+	drawFullHand() {
+		let handSize = this.cardsInHand.length
+		for (let i = 0; i < (maxHandSize - handSize); i++) {
 			this.cardsInHand.push(kortlek.draKort())
 		}
 	}
@@ -253,7 +256,7 @@ class playerHand {
 }
 
 let player1Hand = new playerHand()
-player1Hand.drawFiveCardsToHand()
+player1Hand.drawFullHand()
 player1Hand.sortHandSuit()
 player1Hand.sortHandRank()
 console.log()
