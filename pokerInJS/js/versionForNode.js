@@ -185,15 +185,15 @@ function checkIfFlush(hand) {
     return false
 }
 
-class PlayerHand {
+export class playerHand {
     constructor() {
         this.cardsInHand = []
     }
 
     // Draws cards for this hand
-    drawFullHand() {
+    drawCards(amount = maxHandSize) {
         let handSize = this.cardsInHand.length
-        for (let i = 0; i < (maxHandSize - handSize); i++) {
+        for (let i = 0; i < (amount - handSize); i++) {
             this.cardsInHand.push(deck.drawCard())
         }
     }
@@ -253,8 +253,8 @@ class PlayerHand {
     }
 }
 
-let player1Hand = new PlayerHand()
-player1Hand.drawFullHand()
+let player1Hand = new playerHand()
+player1Hand.drawCards()
 player1Hand.sortHandSuit()
 player1Hand.sortHandRank()
 console.log()

@@ -29,9 +29,9 @@ div.header {
 	margin-top: 10px;
 }
 
-div.table {
+div.table, div.hand {
 	display: flex;
-	margin-top: 50px;
+	margin-top: 0px;
 	flex-direction: column;
 	align-items: center;
 	flex: 1;
@@ -57,20 +57,12 @@ button {
 	cursor: pointer;
 }
 
-div.hand {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	align-content: center;
-}
-
 div.value {
 	padding: 5px;
 	border: 1px solid black;
 	border-radius: 5px;
 	background-color: #f0f0f0;
+	margin-top: -10px;
 }
 
 div.cards {
@@ -86,12 +78,13 @@ img.card {
 	width: 100px;
 	height: 150px;
 	margin-left: -60px;
+	margin-top: 20px;
 	border: 1px solid black;
 	border-radius: 5px;
 	cursor: pointer;
 }
 
-img.card:hover {
+/* img.card:hover {
 	border: 1px solid red;
-	margin-top: -10px;
-}
+	margin-top: 0px;
+} */

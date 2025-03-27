@@ -5,6 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="../css/style.css" />
 		<title>Black jack</title>
+		<script type="module" src="../js/baseCardGame.js"></script>
+		<script type="module" src="../js/blackjack.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -12,28 +14,23 @@
 				<h1>Black jack</h1>
 			</div>
 			<div class="table">
-				Dealer hand:<br />
 				<div class="hand">
-					<div class="cards">
-						<img src="../images/cards/10_of_clubs.png" alt="" class="card" />
-						<img src="../images/cards/10_of_clubs.png" alt="" class="card" />
-					</div>
+					<h2>Dealer hand:</h2>
+					<div class="value" id="dealerValue"></div>
+					<div class="cards" id="dealerHand"></div>
 				</div>
 			</div>
 			<div class="players">
-				Player:
+				<h2>Player:</h2>
 				<div class="action">
-					<button>Stand</button>
-					<button>Hit</button>
-					<button>Double</button>
+					<button id="stand">Stand</button>
+					<button id="hit">Hit</button>
+					<button id="double">Double</button>
 				</div>
 				<div class="hand">
-					<div class="value">10</div>
-					Player hand:<br />
-					<div class="cards">
-						<img src="../images/cards/10_of_clubs.png" alt="" class="card" />
-						<img src="../images/cards/10_of_clubs.png" alt="" class="card" />
-					</div>
+					<h3>Player hand:</h3>
+					<div class="value" id="playerValue"></div>
+					<div class="cards" id="playerHand"></div>
 				</div>
 			</div>
 		</div>
