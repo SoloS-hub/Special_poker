@@ -67,7 +67,6 @@ div.value {
 
 div.cards {
 	display: flex;
-	margin: 30px;
 }
 
 div.cards img:nth-child(1) {

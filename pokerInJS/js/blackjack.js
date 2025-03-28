@@ -1,6 +1,8 @@
 import { deck } from "./baseCardGame.js"
 import { Hand } from "./baseCardGame.js"
 
+let discardPile = []
+
 let dealer = new Hand()
 dealer.drawCards(1)
 dealer.sortHandSuit()
@@ -72,4 +74,34 @@ stand.onclick = function () {
         dealer.drawCards()
 		dealer.showCardsAndVal("dealer")
 	}
+}
+
+function resetGame() {
+	for (let i = 0; i < player1Hand.cardsInHand.length; i++) {
+		discardPile.push(player1Hand.cardsInHand[i])
+	}
+	for (let i = 0; i < dealer.cardsInHand.length; i++) {
+		discardPile.push(dealer.cardsInHand[i])
+	}
+
+	player1Hand = new Hand()
+	player1Hand.drawCards(2)
+	player1Hand.sortHandSuit()
+	player1Hand.sortHandRank()
+	player1Hand.showCardsAndVal("player")
+
+	dealer = new Hand()
+	dealer.drawCards(1)
+	dealer.sortHandSuit()
+	dealer.sortHandRank()
+	dealer.showCardsAndVal("dealer")
+}
+
+var reset = document.getElementById("reset")
+
+reset.onclick = function () {
+    hit.disabled = false
+    stand.disabled = false
+    double.disabled = false
+	resetGame()
 }
