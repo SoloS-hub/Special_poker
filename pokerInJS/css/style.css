@@ -76,14 +76,14 @@ div.cards img:nth-child(1) {
 img.card {
 	width: 100px;
 	height: 150px;
+	margin-top: 30px;
 	margin-left: -60px;
-	margin-top: 20px;
 	border: 1px solid black;
 	border-radius: 5px;
-	cursor: pointer;
 }
 
-/* img.card:hover {
+img.card:hover {
+	cursor: pointer;
 	border: 1px solid red;
-	margin-top: 0px;
-} */
+	margin-top: 10px;
+}

@@ -25,6 +25,7 @@ class Card {
 export class Deck {
 	constructor() {
 		this.stack = []
+		this.discard = []
 	}
 
 	// Add a card to the top of the deck
@@ -39,11 +40,16 @@ export class Deck {
 				this.addCard(new Card(ranks[i], suits[j]))
 			}
 		}
+		// console.log(this.stack)
 	}
 	// Draw a card from the top of the deck
 	drawCard() {
+		if (this.stack.length === 0) {
+			this.addDiscardedCards()
+		}
+		
 		let drawnCard = this.stack.pop()
-		console.log(`You draw a ${drawnCard}`)
+		// console.log(`You draw a ${drawnCard}`)
 		return drawnCard
 	}
 
@@ -67,6 +73,12 @@ export class Deck {
 			this.stack[i] = this.stack[j]
 			this.stack[j] = temp
 		}
+	}
+	// Add discarded cards back to the deck if deck is empty
+	addDiscardedCards() {
+		this.stack = this.stack.concat(this.discard)
+		this.shuffle()
+		this.discard = []
 	}
 }
 

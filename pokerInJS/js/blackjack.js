@@ -1,22 +1,16 @@
 import { deck } from "./baseCardGame.js"
 import { Hand } from "./baseCardGame.js"
 
-let discardPile = []
-
 let dealer = new Hand()
 dealer.drawCards(1)
 dealer.sortHandSuit()
 dealer.sortHandRank()
-console.log()
 dealer.printHand()
-
-console.log()
 
 let player1Hand = new Hand()
 player1Hand.drawCards(2)
 player1Hand.sortHandSuit()
 player1Hand.sortHandRank()
-console.log()
 player1Hand.printHand()
 
 Hand.prototype.handValue = function () {
@@ -47,7 +41,7 @@ Hand.prototype.showCardsAndVal = function (elementId) {
 			`${elementId}Hand`
 		).innerHTML += `<img src="../images/cards/${this.cardsInHand[i].rank}_of_${this.cardsInHand[i].suit}.png" alt="${this.cardsInHand[i].rank} of ${this.cardsInHand[i].suit}" class="card" />`
 	}
-	this.printHand()
+	// this.printHand()
 	document.getElementById(`${elementId}Value`).innerHTML = this.handValue()
 }
 
@@ -66,23 +60,19 @@ addEventListener("DOMContentLoaded", function () {
 var stand = document.getElementById("stand")
 
 stand.onclick = function () {
-    hit.disabled = true
-    stand.disabled = true
-    double.disabled = true  
+	hit.disabled = true
+	stand.disabled = true
+	double.disabled = true
 
 	while (dealer.handValue() < 17) {
-        dealer.drawCards()
+		dealer.drawCards()
 		dealer.showCardsAndVal("dealer")
 	}
 }
 
 function resetGame() {
-	for (let i = 0; i < player1Hand.cardsInHand.length; i++) {
-		discardPile.push(player1Hand.cardsInHand[i])
-	}
-	for (let i = 0; i < dealer.cardsInHand.length; i++) {
-		discardPile.push(dealer.cardsInHand[i])
-	}
+	deck.discard = deck.discard.concat(player1Hand.cardsInHand)
+	deck.discard = deck.discard.concat(dealer.cardsInHand)
 
 	player1Hand = new Hand()
 	player1Hand.drawCards(2)
@@ -100,8 +90,8 @@ function resetGame() {
 var reset = document.getElementById("reset")
 
 reset.onclick = function () {
-    hit.disabled = false
-    stand.disabled = false
-    double.disabled = false
+	hit.disabled = false
+	stand.disabled = false
+	double.disabled = false
 	resetGame()
 }
