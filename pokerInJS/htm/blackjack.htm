@@ -9,6 +9,26 @@
 		<script type="module" src="../js/blackjack.js"></script>
 	</head>
 	<body>
+		<div class="balance">
+			<h1>Balance:</h1>
+			<h2 id="playerBalance"></h2>
+		</div>
+
+		<div class="filler">
+			<div class="bet">
+				<h1>Bet:</h1>
+				<div class="action">
+					<button class="betButton" id="1">1$</button>
+					<button class="betButton" id="2">2$</button>
+					<button class="betButton" id="5">5$</button>
+					<button class="betButton" id="10">10$</button>
+					<button class="betButton" id="max">All in</button>
+				</div>
+				<h1>Curent bet:</h1>
+				<h2 id="playerBet"></h2>
+			</div>
+		</div>
+
 		<div class="container">
 			<div class="header">
 				<h1>Black jack</h1>
@@ -35,5 +55,7 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="filler"></div>
 	</body>
 </html>

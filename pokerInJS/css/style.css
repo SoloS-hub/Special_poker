@@ -2,7 +2,8 @@ body {
 	background-image: url("../images/casino-table-cloth.jpg");
 	background-size: cover;
 	margin: 0;
-	height: 100vh;
+	min-height: 100vh;
+	display: flex;
 }
 
 body,
@@ -11,15 +12,28 @@ div {
 	box-shadow: 0 0 5px red;
 }
 
+div.bet {
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+div.filler {
+	display: flex;
+	justify-content: right;
+	flex: 1;
+}
+
 div.container {
-	width: 100%;
+	width: fit-content;
 	margin: auto;
 	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
 }
 
 div.header {
@@ -44,13 +58,10 @@ div.players {
 	align-items: center;
 }
 
-div.action {
-	display: flex;
-}
-
 button {
 	margin: 10px;
 	padding: 10px;
+	width: fit-content;
 	border: 1px solid black;
 	border-radius: 5px;
 	background-color: #f0f0f0;
@@ -62,7 +73,7 @@ div.value {
 	border: 1px solid black;
 	border-radius: 5px;
 	background-color: #f0f0f0;
-	margin-top: -10px;
+	/* margin-top: -10px; */
 }
 
 div.cards {
@@ -82,8 +93,29 @@ img.card {
 	border-radius: 5px;
 }
 
+h1, h2, h3 {
+	margin: 10px;
+}
+
+div.action {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
 /* img.card:hover {
 	cursor: pointer;
 	border: 1px solid red;
 	margin-top: 10px;
 } */
+
+.balance {
+	position: absolute;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	top: 0;
+	justify-content: center;
+	align-items: center;
+}

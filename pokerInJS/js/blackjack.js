@@ -55,6 +55,7 @@ hit.onclick = function () {
 addEventListener("DOMContentLoaded", function () {
 	player1Hand.showCardsAndVal("player")
 	dealer.showCardsAndVal("dealer")
+	document.getElementById("playerBalance").innerText = `${player1Hand.balance}$`
 })
 
 var stand = document.getElementById("stand")
@@ -95,3 +96,10 @@ reset.onclick = function () {
 	double.disabled = false
 	resetGame()
 }
+
+var bet = document.getElementsByClassName("betButton")
+
+$(document).on("click", "button.betButton", function () {
+		console.log("test")
+	}
+)

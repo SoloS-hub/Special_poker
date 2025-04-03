@@ -85,6 +85,7 @@ export class Deck {
 export class Hand {
 	constructor() {
 		this.cardsInHand = []
+		this.balance = 100
 	}
 
 	// Draws cards for this hand
