@@ -6,6 +6,8 @@ const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "k
 
 // "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"
 
+document.body.innerHTML += `<div id="preloadedCards" style="display: none;"></div>`
+
 // Class to create playing cards
 class Card {
 	constructor(rank, suit) {
@@ -38,6 +40,7 @@ export class Deck {
 		for (let i = 0; i < ranks.length; i++) {
 			for (let j = 0; j < suits.length; j++) {
 				this.addCard(new Card(ranks[i], suits[j]))
+				document.getElementById("preloadedCards").innerHTML += `<img src="../images/cards/${ranks[i]}_of_${suits[j]}.png" alt="${ranks[i]} of ${suits[j]}" id="${ranks[i]}_of_${suits[j]}" class="card" />`
 			}
 		}
 		// console.log(this.stack)
@@ -47,9 +50,10 @@ export class Deck {
 		if (this.stack.length === 0) {
 			this.addDiscardedCards()
 		}
-		
+
 		let drawnCard = this.stack.pop()
-		// console.log(`You draw a ${drawnCard}`)
+		document.getElementById("preloadedCards").innerHTML += `<img src="../images/cards/${drawnCard.rank}_of_${drawnCard.suit}.png" alt="${drawnCard.rank} of ${drawnCard.suit}" id="${drawnCard.rank}_of_${drawnCard.suit}" class="card" />`
+
 		return drawnCard
 	}
 
@@ -86,6 +90,7 @@ export class Hand {
 	constructor() {
 		this.cardsInHand = []
 		this.balance = 100
+		this.bet = 0
 	}
 
 	// Draws cards for this hand
@@ -132,3 +137,4 @@ deck.addFullDeck()
 deck.shuffle()
 
 // deck.showDeck()
+

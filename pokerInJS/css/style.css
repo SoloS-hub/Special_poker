@@ -43,7 +43,8 @@ div.header {
 	margin-top: 10px;
 }
 
-div.table, div.hand {
+div.table,
+div.hand {
 	display: flex;
 	margin-top: 0px;
 	flex-direction: column;
@@ -93,7 +94,9 @@ img.card {
 	border-radius: 5px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
 	margin: 10px;
 }
 
