@@ -33,16 +33,26 @@ Hand.prototype.handValue = function () {
 	return handValue
 }
 
-Hand.prototype.showCardsAndVal = function (elementId) {
-	// document.getElementById(`${elementId}Hand`).innerHTML = ""
-	for (let i = 0; i < this.cardsInHand.length; i++) {
-		// console.log(this.cardsInHand[i])
+Hand.prototype.showCardsAndVal = async function (elementId) {
+	const handElement = document.getElementById(`${elementId}Hand`)
+	const currentCards = Array.from(handElement.children).map((child) => child.id)
 
-		document.getElementById(`${elementId}Hand`).appendChild(document.getElementById(`${this.cardsInHand[i].rank}_of_${this.cardsInHand[i].suit}`))
-		// `<img src="../images/cards/${this.cardsInHand[i].rank}_of_${this.cardsInHand[i].suit}.png" alt="${this.cardsInHand[i].rank} of ${this.cardsInHand[i].suit}" class="card" />`
-	}
-	// this.printHand()
 	document.getElementById(`${elementId}Value`).innerHTML = this.handValue()
+
+	for (let i = 0; i < this.cardsInHand.length; i++) {
+		const cardId = `${this.cardsInHand[i].rank}_of_${this.cardsInHand[i].suit}`
+		if (!currentCards.includes(cardId)) {
+			// Only append cards not already in the hand
+			const cardElement = document.getElementById(cardId)
+			handElement.appendChild(cardElement)
+			console.log(cardElement)
+
+			// Wait for the DOM to update after appending the card
+			await new Promise((resolve) => setTimeout(resolve, 100))
+		}
+	}
+
+	// Update the hand value
 }
 
 addEventListener("DOMContentLoaded", function () {
@@ -60,17 +70,17 @@ hit.onclick = function () {
 
 var stand = document.getElementById("stand")
 
-stand.onclick = function () {
+stand.onclick = async function () {
 	hit.disabled = true
 	stand.disabled = true
 	double.disabled = true
 
 	while (dealer.handValue() < 17) {
 		dealer.drawCards()
-		dealer.showCardsAndVal("dealer")
 	}
-	checkWinner()
-	resetGame()
+	await dealer.showCardsAndVal("dealer") // Wait for cards to load
+
+	endGame() // Call endGame after all cards are loaded
 }
 
 function resetGame() {
@@ -99,9 +109,26 @@ reset.onclick = function () {
 	resetGame()
 }
 
+var double = document.getElementById("double")
+
+double.onclick = function () {
+	if (player1Hand.balance >= player1Hand.bet) {
+		player1Hand.balance -= player1Hand.bet
+		player1Hand.bet *= 2
+		hit.disabled = true
+		stand.disabled = true
+		double.disabled = true
+		player1Hand.drawCards()
+		player1Hand.showCardsAndVal("player")
+	} else {
+		alert("You do not have enough balance to double your bet.")
+	}
+	showBetAndBalance()
+}
+
 var bet = document.getElementsByClassName("betButton")
 
-for(let button of bet) {
+for (let button of bet) {
 	button.onclick = function () {
 		if (Number(button.id) <= player1Hand.balance) {
 			player1Hand.bet += Number(button.id)
@@ -116,12 +143,12 @@ for(let button of bet) {
 	}
 }
 
-function showBetAndBalance () {
+function showBetAndBalance() {
 	document.getElementById("playerBet").innerText = `${player1Hand.bet}$`
 	document.getElementById("playerBalance").innerText = `${player1Hand.balance}$`
 }
 
-function checkWinner() {
+function endGame() {
 	if (player1Hand.handValue() > 21) {
 		alert("Player busted! Dealer wins!")
 		player1Hand.bet = 0
@@ -140,5 +167,6 @@ function checkWinner() {
 		alert("It's a tie!")
 	}
 	showBetAndBalance()
+	resetGame()
 }
-console.log(document.getElementById("preloadedCards").innerHTML)
+// console.log(document.getElementById("preloadedCards").innerHTML)
