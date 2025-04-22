@@ -31,8 +31,23 @@ export class Deck {
 	}
 
 	// Add a card to the top of the deck
-	addCard(item) {
-		this.stack.push(item)
+	addCard(card) {
+		this.stack.push(card)
+		let preloadCard = new Image()
+		preloadCard.src = `../images/cards/${card.rank}_of_${card.suit}.png`
+		preloadCard.alt = `${card.rank} of ${card.suit}`
+		preloadCard.id = `${card.rank}_of_${card.suit}`
+		preloadCard.className = "card"
+		document.getElementById("preloadedCards").innerHTML += preloadCard.outerHTML
+		// document.getElementById("preloadedCards").innerHTML += `<img src="../images/cards/${card.rank}_of_${card.suit}.png" alt="${card.rank} of ${card.suit}" id="${card.rank}_of_${card.suit}" class="card" />`
+	}
+
+	addDiscarded(card) {
+		if (Array.isArray(card)) {
+			this.discard.push(...card)
+		} else {
+			this.discard.push(card)
+		}
 	}
 
 	// Add a full deck of cards
@@ -40,13 +55,6 @@ export class Deck {
 		for (let i = 0; i < ranks.length; i++) {
 			for (let j = 0; j < suits.length; j++) {
 				this.addCard(new Card(ranks[i], suits[j]))
-				let preloadCard = new Image()
-				preloadCard.src = `../images/cards/${ranks[i]}_of_${suits[j]}.png`
-				preloadCard.alt = `${ranks[i]} of ${suits[j]}`
-				preloadCard.id = `${ranks[i]}_of_${suits[j]}`
-				preloadCard.className = "card"
-				document.getElementById("preloadedCards").innerHTML += preloadCard.outerHTML
-				// `<img src="../images/cards/${ranks[i]}_of_${suits[j]}.png" alt="${ranks[i]} of ${suits[j]}" id="${ranks[i]}_of_${suits[j]}" class="card" />`
 			}
 		}
 		// console.log(this.stack)
@@ -58,14 +66,6 @@ export class Deck {
 		}
 
 		let drawnCard = this.stack.pop()
-		let preloadCard = new Image()
-		preloadCard.src = `../images/cards/${drawnCard.rank}_of_${drawnCard.suit}.png`
-		preloadCard.alt = `${drawnCard.rank} of ${drawnCard.suit}`
-		preloadCard.id = `${drawnCard.rank}_of_${drawnCard.suit}`
-		preloadCard.className = "card"
-		document.getElementById("preloadedCards").innerHTML += preloadCard.outerHTML
-		// document.getElementById("preloadedCards").innerHTML += `<img src="../images/cards/${drawnCard.rank}_of_${drawnCard.suit}.png" alt="${drawnCard.rank} of ${drawnCard.suit}" id="${drawnCard.rank}_of_${drawnCard.suit}" class="card" />`
-
 		return drawnCard
 	}
 
@@ -92,7 +92,10 @@ export class Deck {
 	}
 	// Add discarded cards back to the deck if deck is empty
 	addDiscardedCards() {
-		this.stack = this.stack.concat(this.discard)
+		for (let i = 0; i < this.discard.length; i++) {
+			const element = this.discard[i]
+			this.addCard(element)
+		}
 		this.shuffle()
 		this.discard = []
 	}

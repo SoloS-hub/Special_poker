@@ -45,7 +45,7 @@ Hand.prototype.showCardsAndVal = async function (elementId) {
 			// Only append cards not already in the hand
 			const cardElement = document.getElementById(cardId)
 			handElement.appendChild(cardElement)
-			console.log(cardElement)
+			// console.log(cardElement)
 
 			// Wait for the DOM to update after appending the card
 			await new Promise((resolve) => setTimeout(resolve, 100))
@@ -91,8 +91,11 @@ function resetGame() {
 	document.getElementById("playerHand").innerHTML = ""
 	document.getElementById("dealerHand").innerHTML = ""
 
-	deck.discard = deck.discard.concat(playerHand.cardsInHand)
-	deck.discard = deck.discard.concat(dealer.cardsInHand)
+	deck.addDiscarded(playerHand.cardsInHand)
+	deck.addDiscarded(dealer.cardsInHand)
+
+	// deck.discard = deck.discard.concat(playerHand.cardsInHand)
+	// deck.discard = deck.discard.concat(dealer.cardsInHand)
 
 	playerHand.cardsInHand = []
 	playerHand.drawCards(2)
