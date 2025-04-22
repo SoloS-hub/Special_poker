@@ -7,11 +7,11 @@ dealer.sortHandSuit()
 dealer.sortHandRank()
 dealer.printHand()
 
-let player1Hand = new Hand()
-player1Hand.drawCards(2)
-player1Hand.sortHandSuit()
-player1Hand.sortHandRank()
-player1Hand.printHand()
+let playerHand = new Hand()
+playerHand.drawCards(2)
+playerHand.sortHandSuit()
+playerHand.sortHandRank()
+playerHand.printHand()
 
 Hand.prototype.handValue = function () {
 	let handValue = 0
@@ -56,16 +56,16 @@ Hand.prototype.showCardsAndVal = async function (elementId) {
 }
 
 addEventListener("DOMContentLoaded", function () {
-	player1Hand.showCardsAndVal("player")
+	playerHand.showCardsAndVal("player")
 	dealer.showCardsAndVal("dealer")
-	document.getElementById("playerBalance").innerText = `${player1Hand.balance}$`
+	document.getElementById("playerBalance").innerText = `${playerHand.balance}$`
 })
 
 var hit = document.getElementById("hit")
 
 hit.onclick = function () {
-	player1Hand.drawCards()
-	player1Hand.showCardsAndVal("player")
+	playerHand.drawCards()
+	playerHand.showCardsAndVal("player")
 }
 
 var stand = document.getElementById("stand")
@@ -91,12 +91,12 @@ function resetGame() {
 	document.getElementById("playerHand").innerHTML = ""
 	document.getElementById("dealerHand").innerHTML = ""
 
-	deck.discard = deck.discard.concat(player1Hand.cardsInHand)
+	deck.discard = deck.discard.concat(playerHand.cardsInHand)
 	deck.discard = deck.discard.concat(dealer.cardsInHand)
 
-	player1Hand.cardsInHand = []
-	player1Hand.drawCards(2)
-	player1Hand.showCardsAndVal("player")
+	playerHand.cardsInHand = []
+	playerHand.drawCards(2)
+	playerHand.showCardsAndVal("player")
 
 	dealer.cardsInHand = []
 	dealer.drawCards(1)
@@ -112,14 +112,14 @@ reset.onclick = function () {
 var double = document.getElementById("double")
 
 double.onclick = function () {
-	if (player1Hand.balance >= player1Hand.bet) {
-		player1Hand.balance -= player1Hand.bet
-		player1Hand.bet *= 2
+	if (playerHand.balance >= playerHand.bet) {
+		playerHand.balance -= playerHand.bet
+		playerHand.bet *= 2
 		hit.disabled = true
 		stand.disabled = true
 		double.disabled = true
-		player1Hand.drawCards()
-		player1Hand.showCardsAndVal("player")
+		playerHand.drawCards()
+		playerHand.showCardsAndVal("player")
 	} else {
 		alert("You do not have enough balance to double your bet.")
 	}
@@ -130,12 +130,12 @@ var bet = document.getElementsByClassName("betButton")
 
 for (let button of bet) {
 	button.onclick = function () {
-		if (Number(button.id) <= player1Hand.balance) {
-			player1Hand.bet += Number(button.id)
-			player1Hand.balance -= Number(button.id)
+		if (Number(button.id) <= playerHand.balance) {
+			playerHand.bet += Number(button.id)
+			playerHand.balance -= Number(button.id)
 		} else if (button.id === "max") {
-			player1Hand.bet += player1Hand.balance
-			player1Hand.balance = 0
+			playerHand.bet += playerHand.balance
+			playerHand.balance = 0
 		} else {
 			alert("You do not have enough balance")
 		}
@@ -144,25 +144,25 @@ for (let button of bet) {
 }
 
 function showBetAndBalance() {
-	document.getElementById("playerBet").innerText = `${player1Hand.bet}$`
-	document.getElementById("playerBalance").innerText = `${player1Hand.balance}$`
+	document.getElementById("playerBet").innerText = `${playerHand.bet}$`
+	document.getElementById("playerBalance").innerText = `${playerHand.balance}$`
 }
 
 function endGame() {
-	if (player1Hand.handValue() > 21) {
+	if (playerHand.handValue() > 21) {
 		alert("Player busted! Dealer wins!")
-		player1Hand.bet = 0
+		playerHand.bet = 0
 	} else if (dealer.handValue() > 21) {
 		alert("Dealer busted! Player wins!")
-		player1Hand.balance += player1Hand.bet * 2
-		player1Hand.bet = 0
-	} else if (player1Hand.handValue() > dealer.handValue()) {
+		playerHand.balance += playerHand.bet * 2
+		playerHand.bet = 0
+	} else if (playerHand.handValue() > dealer.handValue()) {
 		alert("Player wins!")
-		player1Hand.balance += player1Hand.bet * 2
-		player1Hand.bet = 0
-	} else if (player1Hand.handValue() < dealer.handValue()) {
+		playerHand.balance += playerHand.bet * 2
+		playerHand.bet = 0
+	} else if (playerHand.handValue() < dealer.handValue()) {
 		alert("Dealer wins!")
-		player1Hand.bet = 0
+		playerHand.bet = 0
 	} else {
 		alert("It's a tie!")
 	}
