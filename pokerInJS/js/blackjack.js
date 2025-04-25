@@ -1,17 +1,34 @@
 import { deck } from "./baseCardGame.js"
 import { Hand } from "./baseCardGame.js"
 
-let dealer = new Hand()
-dealer.drawCards(1)
-dealer.sortHandSuit()
-dealer.sortHandRank()
-dealer.printHand()
+var dealer = new Hand()
+var playerHand = new Hand()
 
-let playerHand = new Hand()
-playerHand.drawCards(2)
-playerHand.sortHandSuit()
-playerHand.sortHandRank()
-playerHand.printHand()
+function startGame() {
+	for (let button of bet) {
+		button.disabled = true
+	}
+
+	hit.disabled = false
+	stand.disabled = false
+	double.disabled = false
+	start.disabled = true
+
+	document.getElementById("playerHand").innerHTML = ""
+	document.getElementById("dealerHand").innerHTML = ""
+
+
+	deck.addDiscarded(dealer.cardsInHand)
+	dealer.cardsInHand = []
+	dealer.drawCards()
+	dealer.showCardsAndVal("dealer")
+	
+	deck.addDiscarded(playerHand.cardsInHand)
+	playerHand.cardsInHand = []
+	playerHand.drawCards(2)
+	playerHand.showCardsAndVal("player")
+}
+
 
 Hand.prototype.handValue = function () {
 	let handValue = 0
@@ -61,68 +78,70 @@ addEventListener("DOMContentLoaded", function () {
 	document.getElementById("playerBalance").innerText = `${playerHand.balance}$`
 })
 
-var hit = document.getElementById("hit")
 
-hit.onclick = function () {
-	playerHand.drawCards()
-	playerHand.showCardsAndVal("player")
-}
+// buttons
 
-var stand = document.getElementById("stand")
+var start = document.getElementById("start")
 
-stand.onclick = async function () {
-	hit.disabled = true
-	stand.disabled = true
-	double.disabled = true
-
-	while (dealer.handValue() < 17) {
-		dealer.drawCards()
-	}
-	await dealer.showCardsAndVal("dealer") // Wait for cards to load
-
-	endGame() // Call endGame after all cards are loaded
-}
-
-function resetGame() {
-	hit.disabled = false
-	stand.disabled = false
-	double.disabled = false
-
-	document.getElementById("playerHand").innerHTML = ""
-	document.getElementById("dealerHand").innerHTML = ""
-
-	deck.addDiscarded(playerHand.cardsInHand)
-	deck.addDiscarded(dealer.cardsInHand)
-
-	// deck.discard = deck.discard.concat(playerHand.cardsInHand)
-	// deck.discard = deck.discard.concat(dealer.cardsInHand)
-
-	playerHand.cardsInHand = []
-	playerHand.drawCards(2)
-	playerHand.showCardsAndVal("player")
-
-	dealer.cardsInHand = []
-	dealer.drawCards(1)
-	dealer.showCardsAndVal("dealer")
+start.onclick = function () {
+	bet.disabled = true
+	startGame()
 }
 
 var reset = document.getElementById("reset")
 
 reset.onclick = function () {
-	resetGame()
+	
+	document.getElementById("dealerHand").innerHTML = ""
+	deck.addDiscarded(dealer.cardsInHand)
+	dealer.cardsInHand = []
+	dealer.showCardsAndVal("dealer")
+	
+	document.getElementById("playerHand").innerHTML = ""
+	deck.addDiscarded(playerHand.cardsInHand)
+	playerHand.cardsInHand = []
+	playerHand.balance = 100
+	playerHand.bet = 0
+	playerHand.showCardsAndVal("player")
+
+	showBetAndBalance()
+
+	start.disabled = false
+}
+
+var stand = document.getElementById("stand")
+stand.disabled = true
+
+stand.onclick = async function () {
+	endGame() // Call endGame after all cards are loaded
+}
+
+var hit = document.getElementById("hit")
+hit.disabled = true
+
+hit.onclick = async function () {
+	playerHand.drawCards()
+	await playerHand.showCardsAndVal("player")
+	if (playerHand.handValue() > 21) {
+		endGame()
+	}
 }
 
 var double = document.getElementById("double")
+double.disabled = true
 
-double.onclick = function () {
+double.onclick = async function () {
 	if (playerHand.balance >= playerHand.bet) {
-		playerHand.balance -= playerHand.bet
-		playerHand.bet *= 2
 		hit.disabled = true
 		stand.disabled = true
 		double.disabled = true
+
+		playerHand.balance -= playerHand.bet
+		playerHand.bet *= 2
+
 		playerHand.drawCards()
-		playerHand.showCardsAndVal("player")
+		await playerHand.showCardsAndVal("player")
+		endGame()
 	} else {
 		alert("You do not have enough balance to double your bet.")
 	}
@@ -146,12 +165,25 @@ for (let button of bet) {
 	}
 }
 
+// end of buttons
+
 function showBetAndBalance() {
 	document.getElementById("playerBet").innerText = `${playerHand.bet}$`
 	document.getElementById("playerBalance").innerText = `${playerHand.balance}$`
 }
 
-function endGame() {
+async function endGame() {
+
+	hit.disabled = true
+	stand.disabled = true
+	double.disabled = true
+
+	while (dealer.handValue() < 17) {
+		dealer.drawCards()
+	}
+
+	await dealer.showCardsAndVal("dealer")
+
 	if (playerHand.handValue() > 21) {
 		alert("Player busted! Dealer wins!")
 		playerHand.bet = 0
@@ -170,6 +202,9 @@ function endGame() {
 		alert("It's a tie!")
 	}
 	showBetAndBalance()
-	resetGame()
+	start.disabled = false
+	for (let button of bet) {
+		button.disabled = false
+	}
 }
 // console.log(document.getElementById("preloadedCards").innerHTML)

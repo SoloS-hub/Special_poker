@@ -79,6 +79,7 @@ div.value {
 
 div.cards {
 	display: flex;
+	height: 180px;
 }
 
 div.cards img:nth-child(1) {
@@ -101,7 +102,6 @@ h3 {
 }
 
 div.action {
-	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 }
