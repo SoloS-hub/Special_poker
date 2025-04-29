@@ -44,7 +44,8 @@ div.header {
 }
 
 div.table,
-div.hand {
+div.hand,
+div.players {
 	display: flex;
 	margin-top: 0px;
 	flex-direction: column;
@@ -54,9 +55,6 @@ div.hand {
 
 div.players {
 	margin-bottom: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 
 button {

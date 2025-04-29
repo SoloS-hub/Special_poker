@@ -91,6 +91,10 @@ start.onclick = function () {
 var reset = document.getElementById("reset")
 
 reset.onclick = function () {
+
+	for (let button of bet) {
+		button.disabled = false
+	}
 	
 	document.getElementById("dealerHand").innerHTML = ""
 	deck.addDiscarded(dealer.cardsInHand)
