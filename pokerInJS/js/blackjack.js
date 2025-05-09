@@ -4,6 +4,7 @@ import { Hand } from "./baseCardGame.js"
 var dealer = new Hand()
 var playerHand = new Hand()
 
+// function to start the game and deal cards
 function startGame() {
 	for (let button of bet) {
 		button.disabled = true
@@ -28,6 +29,7 @@ function startGame() {
 	playerHand.showCardsAndVal("player")
 }
 
+// function to return the value of the hand
 Hand.prototype.handValue = function () {
 	let handValue = 0
 	let aceCount = 0
@@ -48,6 +50,7 @@ Hand.prototype.handValue = function () {
 	return handValue
 }
 
+// function to show the cards and value of the hand
 Hand.prototype.showCardsAndVal = async function (elementId) {
 	const handElement = document.getElementById(`${elementId}Hand`)
 	const currentCards = Array.from(handElement.children).map((child) => child.id)
@@ -70,6 +73,7 @@ Hand.prototype.showCardsAndVal = async function (elementId) {
 	// Update the hand value
 }
 
+// function to show all info when the page loads
 addEventListener("DOMContentLoaded", function () {
 	playerHand.showCardsAndVal("player")
 	dealer.showCardsAndVal("dealer")
@@ -78,6 +82,7 @@ addEventListener("DOMContentLoaded", function () {
 
 // buttons
 
+// start button
 var start = document.getElementById("start")
 
 start.onclick = function () {
@@ -85,6 +90,7 @@ start.onclick = function () {
 	startGame()
 }
 
+// reset button
 var reset = document.getElementById("reset")
 
 reset.onclick = function () {
@@ -109,6 +115,7 @@ reset.onclick = function () {
 	start.disabled = false
 }
 
+// stand button
 var stand = document.getElementById("stand")
 stand.disabled = true
 
@@ -116,6 +123,7 @@ stand.onclick = async function () {
 	endGame() // Call endGame after all cards are loaded
 }
 
+// hit button
 var hit = document.getElementById("hit")
 hit.disabled = true
 
@@ -127,6 +135,7 @@ hit.onclick = async function () {
 	}
 }
 
+// double button
 var double = document.getElementById("double")
 double.disabled = true
 
@@ -148,6 +157,7 @@ double.onclick = async function () {
 	showBetAndBalance()
 }
 
+// bet buttons
 var bet = document.getElementsByClassName("betButton")
 
 for (let button of bet) {
@@ -167,11 +177,13 @@ for (let button of bet) {
 
 // end of buttons
 
+// function to show the bet and balance
 function showBetAndBalance() {
 	document.getElementById("playerBet").innerText = `${playerHand.bet}$`
 	document.getElementById("playerBalance").innerText = `${playerHand.balance}$`
 }
 
+// function to end the game
 async function endGame() {
 	hit.disabled = true
 	stand.disabled = true
