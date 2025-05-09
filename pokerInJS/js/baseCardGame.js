@@ -109,7 +109,7 @@ export class Hand {
 	}
 
 	// Draws cards for this hand
-	drawCards(amount = 1) {
+	drawCard(amount = 1) {
 		for (let i = 0; i < amount; i++) {
 			this.cardsInHand.push(deck.drawCard())
 		}

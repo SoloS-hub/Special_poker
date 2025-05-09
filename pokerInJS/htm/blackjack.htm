@@ -9,11 +9,13 @@
 		<script type="module" src="../js/blackjack.js"></script>
 	</head>
 	<body>
+		<!-- div that shows balance -->
 		<div class="balance">
 			<h1>Balance:</h1>
 			<h2 id="playerBalance"></h2>
 		</div>
 
+		<!-- filler div that makes the game be centered and shows bet and posible bets -->
 		<div class="filler">
 			<div class="bet">
 				<h1>Bet:</h1>
@@ -29,30 +31,39 @@
 			</div>
 		</div>
 
+		<!-- div that shows the game -->
 		<div class="container">
 			<div class="header">
 				<h1>Black jack</h1>
 			</div>
+
+			<!-- div of the table -->
 			<div class="table">
-				<div class="hand">
-					<h2>Dealer hand:</h2>
-					<div class="value" id="dealerValue"></div>
-					<div class="cards" id="dealerHand"></div>
+				<div class="dealer">
+					<div class="hand">
+						<h2>Dealer hand:</h2>
+						<div class="value" id="dealerValue"></div>
+						<div class="cards" id="dealerHand"></div>
+					</div>
 				</div>
-			</div>
-			<div class="players">
-				<div class="action">
-					<button id="stand">Stand</button>
-					<button id="hit">Hit</button>
-					<button id="double">Double</button>
-				</div>
-				<div class="hand">
-					<h2>Player hand:</h2>
-					<div class="value" id="playerValue"></div>
-					<div class="cards" id="playerHand"></div>
+
+				<!-- div of the player -->
+				<div class="players">
+					<div class="action">
+						<button id="stand">Stand</button>
+						<button id="hit">Hit</button>
+						<button id="double">Double</button>
+					</div>
+					<div class="hand">
+						<h2>Player hand:</h2>
+						<div class="value" id="playerValue"></div>
+						<div class="cards" id="playerHand"></div>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- div to make game centerd and start/reset the game -->
 		<div class="filler">
 			<div class="action">
 				<button id="start">Start</button>
