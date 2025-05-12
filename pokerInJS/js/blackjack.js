@@ -120,7 +120,7 @@ var stand = document.getElementById("stand")
 stand.disabled = true
 
 stand.onclick = async function () {
-	endGame() // Call endGame after all cards are loaded
+	endGame() 
 }
 
 // hit button
