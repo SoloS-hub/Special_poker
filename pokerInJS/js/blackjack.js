@@ -210,7 +210,7 @@ async function endGame() {
 		alert("Dealer wins!")
 		playerHand.bet = 0
 	} else {
-		alert("It's a tie!")
+		 alert("It's a tie!")
 	}
 	showBetAndBalance()
 	start.disabled = false
